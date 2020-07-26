@@ -138,7 +138,107 @@ class Solution {
 
         </pre>
     </div>
+   <!--   Question 3 -->
+      <div>
+        <div>
+            <h3>
+              
+                 <strong> 1530. Number of Good Leaf Nodes Pairs</strong>
 
+Given the root of a binary tree and an integer distance. A pair of two different leaf nodes of a binary tree is said to be good if the length of the shortest path between them is less than or equal to distance.
+
+Return the number of good leaf node pairs in the tree
+              
+            </h3>
+            <img alt="" src="https://assets.leetcode.com/uploads/2020/07/09/e1.jpg" style="width: 321px; height: 321px;">
+         <pre class="test"><strong>Input:</strong> root = [1,2,3,null,4], distance = 3
+<strong>Output:</strong> 1
+<strong>Explanation:</strong> The leaf nodes of the tree are 3 and 4 and the length of the shortest path between them is 3. This is the only good pair.
+</pre>
+        </div>
+        <br>
+        <pre class="code">
+            <div>
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+import java.util.*;
+class Solution {
+     int ans = 0;
+    public int countPairs(TreeNode root, int distance) {
+        helper(root,distance);
+        return ans;
+    }
+    public  ArrayList<Integer> helper(TreeNode root,int d) {
+        
+         if(root == null) {
+               return null;
+         }
+        
+         if(root.left == null && root.right == null) {
+               ArrayList<Integer> arr = new ArrayList<Integer>();
+               arr.add(1);
+               return arr;
+         }
+        
+         ArrayList<Integer> left = helper(root.left,d);
+         ArrayList<Integer> right = helper(root.right,d);
+                  
+        ArrayList<Integer> arr = new ArrayList<Integer>();
+        if(left!=null && right!=null){
+          for(int l: left){
+                for(int r:right ){
+                       if(l+r<=d){
+                             ans++;
+                       }
+                }
+          }
+        }
+         
+        if(left!=null){
+      
+             for(int item: left){
+                 
+                   if(item+1 <= d){
+                          arr.add(item+1);
+                   }
+                
+             }
+        }
+             
+        if(right!=null){
+            
+             for(int item: right){
+                 
+                   if(item+1 <= d){
+                          arr.add(item+1);
+                   }
+                
+             }
+        }
+        
+        
+      return arr;  
+    }
+}
+     </div>
+
+        </pre>
+    </div>
+<!----------------------------- Similar Questions -->
     <hr>
 
     <div>
